@@ -1,0 +1,101 @@
+{
+  "hardware": [
+    {
+      "name": "A100-40G-SXM",
+      "vendor": "NVIDIA",
+      "memory_gb": 40,
+      "memory_bandwidth_gbps": 1555,
+      "peak_tflops_fp16": 312,
+      "peak_tflops_bf16": 312,
+      "peak_tflops_fp32": 19.5,
+      "nvlink_bandwidth_gbps": 600,
+      "typical_mfu": 0.50,
+      "tdp_watts": 400
+    },
+    {
+      "name": "A100-80G-SXM",
+      "vendor": "NVIDIA",
+      "memory_gb": 80,
+      "memory_bandwidth_gbps": 2039,
+      "peak_tflops_fp16": 312,
+      "peak_tflops_bf16": 312,
+      "peak_tflops_fp32": 19.5,
+      "nvlink_bandwidth_gbps": 600,
+      "typical_mfu": 0.50,
+      "tdp_watts": 400
+    },
+    {
+      "name": "A100-80G-PCIe",
+      "vendor": "NVIDIA",
+      "memory_gb": 80,
+      "memory_bandwidth_gbps": 2039,
+      "peak_tflops_fp16": 312,
+      "peak_tflops_bf16": 312,
+      "peak_tflops_fp32": 19.5,
+      "nvlink_bandwidth_gbps": 0,
+      "typical_mfu": 0.45,
+      "tdp_watts": 300
+    },
+    {
+      "name": "H100-80G-SXM",
+      "vendor": "NVIDIA",
+      "memory_gb": 80,
+      "memory_bandwidth_gbps": 3350,
+      "peak_tflops_fp16": 989,
+      "peak_tflops_bf16": 989,
+      "peak_tflops_fp32": 67,
+      "nvlink_bandwidth_gbps": 900,
+      "typical_mfu": 0.55,
+      "tdp_watts": 700
+    },
+    {
+      "name": "H100-80G-PCIe",
+      "vendor": "NVIDIA",
+      "memory_gb": 80,
+      "memory_bandwidth_gbps": 2000,
+      "peak_tflops_fp16": 756,
+      "peak_tflops_bf16": 756,
+      "peak_tflops_fp32": 51,
+      "nvlink_bandwidth_gbps": 0,
+      "typical_mfu": 0.50,
+      "tdp_watts": 350
+    },
+    {
+      "name": "H800-80G-SXM",
+      "vendor": "NVIDIA",
+      "memory_gb": 80,
+      "memory_bandwidth_gbps": 3350,
+      "peak_tflops_fp16": 989,
+      "peak_tflops_bf16": 989,
+      "peak_tflops_fp32": 67,
+      "nvlink_bandwidth_gbps": 400,
+      "typical_mfu": 0.50,
+      "tdp_watts": 700
+    },
+    {
+      "name": "Ascend910B",
+      "vendor": "Huawei",
+      "memory_gb": 64,
+      "memory_bandwidth_gbps": 1200,
+      "peak_tflops_fp16": 320,
+      "peak_tflops_bf16": 320,
+      "peak_tflops_fp32": 20,
+      "nvlink_bandwidth_gbps": 0,
+      "hccs_bandwidth_gbps": 392,
+      "typical_mfu": 0.45,
+      "tdp_watts": 400
+    },
+    {
+      "name": "L40S",
+      "vendor": "NVIDIA",
+      "memory_gb": 48,
+      "memory_bandwidth_gbps": 864,
+      "peak_tflops_fp16": 362,
+      "peak_tflops_bf16": 362,
+      "peak_tflops_fp32": 91,
+      "nvlink_bandwidth_gbps": 0,
+      "typical_mfu": 0.45,
+      "tdp_watts": 350
+    }
+  ]
+}
