@@ -37,7 +37,7 @@ pip install lmc[dev]
 Install from source:
 
 ```bash
-git clone https://github.com/your-username/llm-math-calculator.git
+git clone https://github.com/iannil/llm-math-calculator.git
 cd llm-math-calculator
 pip install -e ".[dev,web]"
 ```
@@ -158,7 +158,7 @@ lmc-web
 Based on [Megatron-LM](https://arxiv.org/abs/1909.08053) paper and industry practices:
 
 | Metric | Formula | Description |
-|--------|---------|-------------|
+| -------- | --------- | ------------- |
 | Training FLOPs | `6 × P × D` | P=parameters, D=training data size |
 | Memory (ZeRO-0) | `16 Bytes × P` | Parameters + Gradients + Optimizer states |
 | Activations | `s × b × h × L × (34 + 5ah/s)` | s=sequence length, b=batch, h=hidden, L=layers |
@@ -168,7 +168,7 @@ Based on [Megatron-LM](https://arxiv.org/abs/1909.08053) paper and industry prac
 ### ZeRO Optimization
 
 | Stage | Partitioned Content | Memory Savings |
-|-------|---------------------|----------------|
+| ------- | --------------------- | ---------------- |
 | ZeRO-0 | None | Baseline (16B/param) |
 | ZeRO-1 | Optimizer states | ~4x |
 | ZeRO-2 | Optimizer + Gradients | ~8x |
@@ -177,7 +177,7 @@ Based on [Megatron-LM](https://arxiv.org/abs/1909.08053) paper and industry prac
 ## Supported Hardware
 
 | Hardware | Memory | FP16 TFLOPS | Interconnect Bandwidth | Typical MFU |
-|----------|--------|-------------|------------------------|-------------|
+| ---------- | -------- | ------------- | ------------------------ | ------------- |
 | A100-40G-SXM | 40 GB | 312 | NVLink 600 GB/s | 50% |
 | A100-80G-SXM | 80 GB | 312 | NVLink 600 GB/s | 50% |
 | A100-80G-PCIe | 80 GB | 312 | - | 45% |
@@ -190,7 +190,7 @@ Based on [Megatron-LM](https://arxiv.org/abs/1909.08053) paper and industry prac
 ## Supported Model Presets
 
 | Model | Parameters | Architecture | MoE |
-|-------|------------|--------------|-----|
+| ------- | ------------ | -------------- | ----- |
 | Llama-3-8B | 8B | Llama | - |
 | Llama-3-70B | 70B | Llama | - |
 | Llama-3.1-405B | 405B | Llama | - |
@@ -224,7 +224,7 @@ llm-math-calculator/
 
 ```bash
 # Clone repository
-git clone https://github.com/your-username/llm-math-calculator.git
+git clone https://github.com/iannil/llm-math-calculator.git
 cd llm-math-calculator
 
 # Create virtual environment
@@ -251,6 +251,7 @@ Contributions are welcome! Especially:
 - **Documentation**: Multi-language support
 
 Before submitting a PR, please ensure:
+
 1. All tests pass (`pytest tests/`)
 2. Code follows project style
 3. Related documentation is updated

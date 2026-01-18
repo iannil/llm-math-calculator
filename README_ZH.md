@@ -37,7 +37,7 @@ pip install lmc[dev]
 从源码安装：
 
 ```bash
-git clone https://github.com/your-username/llm-math-calculator.git
+git clone https://github.com/iannil/llm-math-calculator.git
 cd llm-math-calculator
 pip install -e ".[dev,web]"
 ```
@@ -158,7 +158,7 @@ lmc-web
 基于 [Megatron-LM](https://arxiv.org/abs/1909.08053) 论文和业界实践：
 
 | 指标 | 公式 | 说明 |
-|------|------|------|
+| ------ | ------ | ------ |
 | 训练算力 | `6 × P × D` | P=参数量, D=训练数据量 |
 | 显存 (ZeRO-0) | `16 Bytes × P` | 参数+梯度+优化器状态 |
 | 激活值 | `s × b × h × L × (34 + 5ah/s)` | s=序列长度, b=batch, h=hidden, L=层数 |
@@ -168,7 +168,7 @@ lmc-web
 ### ZeRO 优化
 
 | 阶段 | 分区内容 | 显存节省 |
-|------|----------|----------|
+| ------ | ---------- | ---------- |
 | ZeRO-0 | 无 | 基准 (16B/param) |
 | ZeRO-1 | 优化器状态 | ~4x |
 | ZeRO-2 | 优化器+梯度 | ~8x |
@@ -177,7 +177,7 @@ lmc-web
 ## 支持的硬件
 
 | 硬件 | 显存 | FP16 TFLOPS | 互联带宽 | 典型 MFU |
-|------|------|-------------|----------|----------|
+| ------ | ------ | ------------- | ---------- | ---------- |
 | A100-40G-SXM | 40 GB | 312 | NVLink 600 GB/s | 50% |
 | A100-80G-SXM | 80 GB | 312 | NVLink 600 GB/s | 50% |
 | A100-80G-PCIe | 80 GB | 312 | - | 45% |
@@ -190,7 +190,7 @@ lmc-web
 ## 支持的模型预设
 
 | 模型 | 参数量 | 架构 | MoE |
-|------|--------|------|-----|
+| ------ | -------- | ------ | ----- |
 | Llama-3-8B | 8B | Llama | - |
 | Llama-3-70B | 70B | Llama | - |
 | Llama-3.1-405B | 405B | Llama | - |
@@ -224,7 +224,7 @@ llm-math-calculator/
 
 ```bash
 # 克隆仓库
-git clone https://github.com/your-username/llm-math-calculator.git
+git clone https://github.com/iannil/llm-math-calculator.git
 cd llm-math-calculator
 
 # 创建虚拟环境
@@ -251,6 +251,7 @@ lmc train --gpu A100-80G-SXM --params 7B --tokens 100B
 - **文档翻译**: 多语言支持
 
 提交 PR 前请确保：
+
 1. 通过所有测试 (`pytest tests/`)
 2. 代码符合项目风格
 3. 更新相关文档
