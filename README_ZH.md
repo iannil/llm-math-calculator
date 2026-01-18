@@ -1,40 +1,40 @@
 # LLM Math Calculator (LMC)
 
-English | [中文](README_ZH.md)
+[English](README.md) | 中文
 
-**AI Infrastructure Resource Planning Tool** — Estimate computing resources required for LLM training and inference
+**AI 基础设施资源规划工具** — 估算大模型训练和推理所需的计算资源
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-LMC is a "scientific calculator" for LLM training, encapsulating complex resource estimation formulas into a minimal interface. It helps you quickly answer:
+LMC 是一个面向大模型训练的"科学计算器"，将复杂的资源估算公式封装为极简接口。它能帮助你快速回答：
 
-- How many GPUs are needed to train a 70B model?
-- How long will training take with 64 A100s?
-- Is there enough memory? What parallelism strategy should be used?
+- 训练一个 70B 模型需要多少张 GPU？
+- 用 64 张 A100 训练需要多长时间？
+- 显存够不够？该用什么并行策略？
 
-## Features
+## 功能特性
 
-- **Core Computation Engine**: Mathematical models based on Megatron-LM papers, supporting FLOPs, memory, and training time estimation
-- **Parallelism Strategy Recommendations**: Automatic TP/PP/DP/ZeRO configuration suggestions
-- **Hardware Database**: Pre-configured parameters for mainstream GPUs including A100, H100, H800, Ascend 910B
-- **Model Presets**: Support for Llama-3, Mixtral, GPT-3, Qwen, DeepSeek and more
-- **Multiple Interfaces**: CLI + Python API + Web UI
+- **核心计算引擎**: 基于 Megatron-LM 论文的数学模型，支持 FLOPs、显存、训练时间估算
+- **并行策略推荐**: 自动推荐 TP/PP/DP/ZeRO 配置
+- **硬件数据库**: 预置 A100、H100、H800、昇腾 910B 等主流 GPU 参数
+- **模型预设库**: 支持 Llama-3、Mixtral、GPT-3、Qwen、DeepSeek 等模型
+- **多种接口**: CLI 命令行 + Python API + Web UI
 
-## Installation
+## 安装
 
 ```bash
-# Basic installation
+# 基础安装
 pip install lmc
 
-# With Web UI
+# 包含 Web UI
 pip install lmc[web]
 
-# Development environment
+# 开发环境
 pip install lmc[dev]
 ```
 
-Install from source:
+从源码安装：
 
 ```bash
 git clone https://github.com/your-username/llm-math-calculator.git
@@ -42,34 +42,34 @@ cd llm-math-calculator
 pip install -e ".[dev,web]"
 ```
 
-## Quick Start
+## 快速开始
 
-### CLI
+### CLI 命令行
 
 ```bash
-# Basic estimation
+# 基础估算
 lmc train --gpu A100-80G-SXM --params 70B --tokens 400B --num-gpus 64
 
-# Specify target training days, auto-calculate GPU count
+# 指定目标训练天数，自动计算 GPU 数量
 lmc train --gpu A100-80G-SXM --params 70B --tokens 400B --days 30
 
-# Use model preset
+# 使用模型预设
 lmc train --preset Llama-3-70B --tokens 400B --gpu H100-80G-SXM --num-gpus 128
 
-# Interactive mode
+# 交互式模式
 lmc train -i
 
-# List hardware
+# 查看硬件列表
 lmc hardware list
 
-# List model presets
+# 查看模型预设
 lmc model list
 
-# CI/CD feasibility check
+# CI/CD 可行性检查
 lmc check --params 70B --gpu A100-80G-SXM --num-gpus 64
 ```
 
-Output example:
+输出示例：
 
 ```
 ╭──────────────────────────────────────────────────────────────╮
@@ -119,7 +119,7 @@ from lmc import (
     get_preset,
 )
 
-# Full resource estimation
+# 完整资源估算
 config = TrainingConfig(
     params_billion=70,
     tokens_billion=400,
@@ -130,16 +130,16 @@ config = TrainingConfig(
 )
 result = estimate_resources(config)
 
-print(f"Training time: {result.training_time_formatted}")
+print(f"训练时间: {result.training_time_formatted}")
 print(f"GPU Hours: {result.gpu_hours:,.0f}")
-print(f"Memory/GPU: {result.memory.per_gpu:.1f} GB")
-print(f"Recommended strategy: TP={result.parallelism.tensor_parallel}, PP={result.parallelism.pipeline_parallel}")
+print(f"显存/GPU: {result.memory.per_gpu:.1f} GB")
+print(f"推荐策略: TP={result.parallelism.tensor_parallel}, PP={result.parallelism.pipeline_parallel}")
 
-# Individual calculations
+# 单独计算
 flops = calc_total_flops(params=70e9, tokens=400e9)
 memory = calc_memory_model_states(params=70e9, zero_stage=ZeROStage.ZERO_2, num_gpus=8)
 
-# Using presets
+# 使用预设
 preset = get_preset("Llama-3-70B")
 print(f"Hidden size: {preset.hidden_size}, Layers: {preset.num_layers}")
 ```
@@ -147,37 +147,37 @@ print(f"Hidden size: {preset.hidden_size}, Layers: {preset.num_layers}")
 ### Web UI
 
 ```bash
-# Launch Web interface
+# 启动 Web 界面
 streamlit run src/lmc/web.py
-# Or
+# 或
 lmc-web
 ```
 
-## Core Formulas
+## 核心公式
 
-Based on [Megatron-LM](https://arxiv.org/abs/1909.08053) paper and industry practices:
+基于 [Megatron-LM](https://arxiv.org/abs/1909.08053) 论文和业界实践：
 
-| Metric | Formula | Description |
-|--------|---------|-------------|
-| Training FLOPs | `6 × P × D` | P=parameters, D=training data size |
-| Memory (ZeRO-0) | `16 Bytes × P` | Parameters + Gradients + Optimizer states |
-| Activations | `s × b × h × L × (34 + 5ah/s)` | s=sequence length, b=batch, h=hidden, L=layers |
-| KV Cache | `2 × b × s × h × L × 2` | For inference |
-| Training Time | `FLOPs / (GPUs × TFLOPS × MFU)` | MFU: Model FLOPs Utilization |
+| 指标 | 公式 | 说明 |
+|------|------|------|
+| 训练算力 | `6 × P × D` | P=参数量, D=训练数据量 |
+| 显存 (ZeRO-0) | `16 Bytes × P` | 参数+梯度+优化器状态 |
+| 激活值 | `s × b × h × L × (34 + 5ah/s)` | s=序列长度, b=batch, h=hidden, L=层数 |
+| KV Cache | `2 × b × s × h × L × 2` | 推理场景 |
+| 训练时间 | `FLOPs / (GPUs × TFLOPS × MFU)` | MFU: 模型利用率 |
 
-### ZeRO Optimization
+### ZeRO 优化
 
-| Stage | Partitioned Content | Memory Savings |
-|-------|---------------------|----------------|
-| ZeRO-0 | None | Baseline (16B/param) |
-| ZeRO-1 | Optimizer states | ~4x |
-| ZeRO-2 | Optimizer + Gradients | ~8x |
-| ZeRO-3 | All | ~N (GPU count) |
+| 阶段 | 分区内容 | 显存节省 |
+|------|----------|----------|
+| ZeRO-0 | 无 | 基准 (16B/param) |
+| ZeRO-1 | 优化器状态 | ~4x |
+| ZeRO-2 | 优化器+梯度 | ~8x |
+| ZeRO-3 | 全部 | ~N (GPU数) |
 
-## Supported Hardware
+## 支持的硬件
 
-| Hardware | Memory | FP16 TFLOPS | Interconnect Bandwidth | Typical MFU |
-|----------|--------|-------------|------------------------|-------------|
+| 硬件 | 显存 | FP16 TFLOPS | 互联带宽 | 典型 MFU |
+|------|------|-------------|----------|----------|
 | A100-40G-SXM | 40 GB | 312 | NVLink 600 GB/s | 50% |
 | A100-80G-SXM | 80 GB | 312 | NVLink 600 GB/s | 50% |
 | A100-80G-PCIe | 80 GB | 312 | - | 45% |
@@ -187,10 +187,10 @@ Based on [Megatron-LM](https://arxiv.org/abs/1909.08053) paper and industry prac
 | Ascend 910B | 64 GB | 320 | HCCS 392 GB/s | 45% |
 | L40S | 48 GB | 362 | - | 45% |
 
-## Supported Model Presets
+## 支持的模型预设
 
-| Model | Parameters | Architecture | MoE |
-|-------|------------|--------------|-----|
+| 模型 | 参数量 | 架构 | MoE |
+|------|--------|------|-----|
 | Llama-3-8B | 8B | Llama | - |
 | Llama-3-70B | 70B | Llama | - |
 | Llama-3.1-405B | 405B | Llama | - |
@@ -200,62 +200,62 @@ Based on [Megatron-LM](https://arxiv.org/abs/1909.08053) paper and industry prac
 | Qwen2-72B | 72B | Qwen | - |
 | DeepSeek-V2-236B | 236B (21B active) | DeepSeek | 160×6 |
 
-## Project Structure
+## 项目结构
 
 ```
 llm-math-calculator/
-├── pyproject.toml          # Project configuration
+├── pyproject.toml          # 项目配置
 ├── data/
-│   ├── hardware.json       # Hardware database
-│   └── presets.json        # Model presets
+│   ├── hardware.json       # 硬件数据库
+│   └── presets.json        # 模型预设库
 ├── src/lmc/
-│   ├── __init__.py         # API exports
-│   ├── cli.py              # CLI commands
-│   ├── engine.py           # Computation engine
-│   ├── loader.py           # Data loader
-│   ├── models.py           # Data models
-│   ├── optimizer.py        # Strategy recommender
+│   ├── __init__.py         # API 导出
+│   ├── cli.py              # CLI 命令
+│   ├── engine.py           # 计算引擎
+│   ├── loader.py           # 数据加载器
+│   ├── models.py           # 数据模型
+│   ├── optimizer.py        # 策略推荐器
 │   └── web.py              # Web UI
 └── tests/
-    └── test_engine.py      # Unit tests
+    └── test_engine.py      # 单元测试
 ```
 
-## Development
+## 开发
 
 ```bash
-# Clone repository
+# 克隆仓库
 git clone https://github.com/your-username/llm-math-calculator.git
 cd llm-math-calculator
 
-# Create virtual environment
+# 创建虚拟环境
 python -m venv .venv
 source .venv/bin/activate
 
-# Install development dependencies
+# 安装开发依赖
 pip install -e ".[dev,web]"
 
-# Run tests
+# 运行测试
 pytest tests/ -v
 
-# Test a single command
+# 运行单个命令测试
 lmc train --gpu A100-80G-SXM --params 7B --tokens 100B
 ```
 
-## Contributing
+## 贡献
 
-Contributions are welcome! Especially:
+欢迎贡献！特别是：
 
-- **Hardware Data**: Add new GPUs (e.g., B200, MI300X) to `data/hardware.json`
-- **Model Presets**: Add new models to `data/presets.json`
-- **Formula Improvements**: Enhance estimation accuracy
-- **Documentation**: Multi-language support
+- **硬件数据**: 添加新 GPU (如 B200、MI300X) 到 `data/hardware.json`
+- **模型预设**: 添加新模型到 `data/presets.json`
+- **公式优化**: 改进估算精度
+- **文档翻译**: 多语言支持
 
-Before submitting a PR, please ensure:
-1. All tests pass (`pytest tests/`)
-2. Code follows project style
-3. Related documentation is updated
+提交 PR 前请确保：
+1. 通过所有测试 (`pytest tests/`)
+2. 代码符合项目风格
+3. 更新相关文档
 
-## References
+## 参考文献
 
 - [Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053)
 - [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054)
@@ -263,4 +263,4 @@ Before submitting a PR, please ensure:
 
 ## License
 
-MIT License - See [LICENSE](LICENSE) file for details
+MIT License - 详见 [LICENSE](LICENSE) 文件
