@@ -256,6 +256,28 @@ Before submitting a PR, please ensure:
 2. Code follows project style
 3. Related documentation is updated
 
+## Roadmap
+
+### Completed (v1.0)
+
+- [x] **Core Computation Engine**: FLOPs, memory, training time estimation based on Megatron-LM formulas
+- [x] **CLI Tool**: `lmc train`, `lmc check`, `lmc calc-gpus`, `lmc hardware`, `lmc model` commands
+- [x] **Python API**: 20+ exported functions and classes
+- [x] **Web UI**: Streamlit-based visualization interface
+- [x] **Hardware Database**: 8 GPUs (A100, H100, H800, Ascend 910B, L40S, etc.)
+- [x] **Model Presets**: 8 models (Llama-3, Mixtral, GPT-3, Qwen, DeepSeek, etc.)
+- [x] **MoE Support**: Active params tracking for Mixture-of-Experts models
+- [x] **ZeRO Optimization**: Full support for ZeRO stages 0-3
+- [x] **Unit Tests**: 24 test cases covering core functionality
+- [x] **Documentation**: Bilingual README (English/Chinese)
+
+### Planned
+
+- [ ] Add more GPU support (B200, MI300X, etc.)
+- [ ] Add inference resource estimation
+- [ ] PyPI package publishing
+- [ ] Interactive Web UI enhancements
+
 ## References
 
 - [Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053)

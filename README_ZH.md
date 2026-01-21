@@ -256,6 +256,28 @@ lmc train --gpu A100-80G-SXM --params 7B --tokens 100B
 2. 代码符合项目风格
 3. 更新相关文档
 
+## 路线图
+
+### 已完成 (v1.0)
+
+- [x] **核心计算引擎**：基于 Megatron-LM 公式的 FLOPs、显存、训练时间估算
+- [x] **CLI 命令行工具**：`lmc train`、`lmc check`、`lmc calc-gpus`、`lmc hardware`、`lmc model` 命令
+- [x] **Python API**：20+ 导出函数和类
+- [x] **Web UI**：基于 Streamlit 的可视化界面
+- [x] **硬件数据库**：8 种 GPU（A100、H100、H800、昇腾 910B、L40S 等）
+- [x] **模型预设库**：8 个模型（Llama-3、Mixtral、GPT-3、Qwen、DeepSeek 等）
+- [x] **MoE 支持**：混合专家模型的激活参数追踪
+- [x] **ZeRO 优化**：完整支持 ZeRO 0-3 阶段
+- [x] **单元测试**：24 个测试用例覆盖核心功能
+- [x] **文档**：中英文双语 README
+
+### 计划中
+
+- [ ] 添加更多 GPU 支持（B200、MI300X 等）
+- [ ] 添加推理资源估算功能
+- [ ] PyPI 包发布
+- [ ] Web UI 交互增强
+
 ## 参考文献
 
 - [Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism](https://arxiv.org/abs/1909.08053)
