@@ -138,10 +138,10 @@ class TrainingConfig(BaseModel):
 class MemoryBreakdown(BaseModel):
     """Detailed memory usage breakdown in GB."""
 
-    model_states: float = Field(description="Parameters + gradients + optimizer states")
-    activations: float = Field(description="Activation memory per micro-batch")
+    model_states: float = Field(description="Parameters + gradients + optimizer states (per GPU)")
+    activations: float = Field(description="Activation memory per micro-batch (per GPU)")
     kv_cache: float = Field(default=0, description="KV cache for inference")
-    total: float = Field(description="Total memory requirement")
+    total: float = Field(description="Total memory requirement before parallelism")
     per_gpu: float = Field(description="Memory per GPU after parallelism")
 
 

@@ -326,7 +326,11 @@ def estimate_resources(config: TrainingConfig) -> ComputeResult:
     # Model states are divided by TP and PP
     model_states_per_gpu = model_states_bytes / (tp * pp)
 
-    total_memory_bytes = model_states_per_gpu + activations_bytes
+    # Activations are divided by PP (each stage only stores its layers' activations)
+    # Note: TP division is already handled inside calc_memory_activations
+    activations_per_gpu = activations_bytes / pp
+
+    total_memory_bytes = model_states_per_gpu + activations_per_gpu
     memory_gb = total_memory_bytes / 1e9
 
     # Check if memory fits
@@ -336,10 +340,10 @@ def estimate_resources(config: TrainingConfig) -> ComputeResult:
         )
 
     memory = MemoryBreakdown(
-        model_states=model_states_bytes / 1e9,
-        activations=activations_bytes / 1e9,
+        model_states=model_states_per_gpu / 1e9,  # Per-GPU value for consistency
+        activations=activations_per_gpu / 1e9,    # Per-GPU value for consistency
         kv_cache=0,  # KV cache is for inference
-        total=memory_gb * tp * pp,  # Total across all model-parallel GPUs
+        total=(model_states_bytes + activations_bytes) / 1e9,  # Total before parallelism
         per_gpu=memory_gb,
     )
 
